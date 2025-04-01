@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jewelry Design Assistant</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        button { margin: 5px; padding: 10px; }
+        #response { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Jewelry Design Assistant</h1>
+    <button onclick="sendPrompt('Vintage Ring Ideas')">Vintage Rings</button>
+    <button onclick="sendPrompt('Trending Necklaces')">Trending Necklaces</button>
+    <button onclick="sendPrompt('Gemstone Pairings for Silver')">Silver Gems</button>
+    <button onclick="sendPrompt('Earring Trends')">Earring Trends</button>
+    <button onclick="sendPrompt('Mexican Themed Ideas')">Mexican Ideas</button>
+    <button onclick="sendPrompt('Caribbean Ideas')">Caribbean Ideas</button>
+    <br><br>
+    <input id="prompt" type="text" placeholder="Type your own idea..." style="width: 300px;">
+    <button onclick="sendPrompt(document.getElementById('prompt').value)">Go</button>
+    <p id="response"></p>
+
+    <script>
+        function sendPrompt(prompt) {
+            fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({prompt: prompt})
+            })
+            .then(response => response.json())
+            .then(data => document.getElementById('response').innerHTML = data.response);
+        }
+    </script>
+</body>
+</html>
